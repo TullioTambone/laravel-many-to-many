@@ -44,6 +44,17 @@
             </div>
             @enderror
 
+        <div class="mb-3">
+            @foreach($technologies as $e)
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{$e->id}}" id="check-tech-{{$e->id}}">
+              <label class="form-check-label" for="check-tech-{{$e->id}}">
+                {{$e->name}}
+              </label>
+            </div>
+            @foreach
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

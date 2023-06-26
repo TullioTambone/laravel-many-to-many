@@ -68,7 +68,8 @@
                         {{ $project->technologies->contains($e) ? 'checked' : ''}}>
                         
                     @endif
-                        
+                    
+                    
                     <label class="form-check-label" for="check-tech-{{$e->id}}">
                         {{$e->name}}
                     </label>

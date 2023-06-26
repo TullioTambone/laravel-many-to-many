@@ -169,7 +169,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-
+        $project->technologies()->sync([]);
         return redirect()->route('admin.projects.index');
     }
 }

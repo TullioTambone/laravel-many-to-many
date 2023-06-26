@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -46,15 +48,17 @@
 
         <div class="mb-3">
             @foreach($technologies as $e)
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="{{$e->id}}" id="check-tech-{{$e->id}}">
-              <label class="form-check-label" for="check-tech-{{$e->id}}">
-                {{$e->name}}
-              </label>
-            </div>
-            @foreach
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name=
+                    "technologies[]" value="{{$e->id}}" id="check-tech-{{$e->id}}">
+                    <label class="form-check-label" for="check-tech-{{$e->id}}">
+                        {{$e->name}}
+                    </label>
+                </div>
+            @endforeach
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
 @endsection

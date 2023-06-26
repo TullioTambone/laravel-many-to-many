@@ -51,7 +51,8 @@ class ProjectController extends Controller
                 "title" => "required",
                 'description' => "required",
                 'img' => 'nullable|image',
-                'type_id' => "nullable|exists:types,id"
+                'type_id' => "nullable|exists:types,id",
+                'technologies' => "exists:technologies,id",
             ],
             [
                 "title.required" => 'il nome é obbligatorio',
@@ -74,6 +75,10 @@ class ProjectController extends Controller
         $new_project = new Project();
         $new_project->fill( $form_data );
         $new_project->save();
+
+        if ($request->has('technologies')){
+            $new_project->technologies()->attach($request->technologies);
+        }
         
         return redirect()->route('admin.projects.index');
         
@@ -101,7 +106,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -119,7 +126,8 @@ class ProjectController extends Controller
                 "title" => "required",
                 'description' => "required",
                 'img' => 'nullable|image',
-                'type_id' => "nullable|exists:types,id"
+                'type_id' => "nullable|exists:types,id",
+                'technologies' => "exists:technologies,id"
             ],
             [
                 "title.required" => 'il nome é obbligatorio',
@@ -143,6 +151,11 @@ class ProjectController extends Controller
         $form_data['slug'] = $slug;
         
         $project->update($form_data);
+
+        
+        if ($request->has('technologies')){
+            $project->technologies()->sync($request->technologies);
+        }
         
         return redirect()->route('admin.projects.index');
     }
